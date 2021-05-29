@@ -5,11 +5,11 @@
 
 //1. poprawic proporcje w powiekszaniu/pomniejszaniu(50%, 100%, 200%, 400%)															+++
 //2. powiekszanie/pomniejszanie tylko kopia żeby zapisywać w oryginalnym wymiarze(albo przechowywać oryginalne wymiary)				+++
-//3. wczytywanie 2 zdjęcia po tym jak powiększyliśmy pierwsze (niech się wczytuje powiększone w ten sam sposób)						
+//3. wczytywanie 2 zdjęcia po tym jak powiększyliśmy pierwsze (niech się wczytuje powiększone w ten sam sposób)						+++
 //4. przygotwac kilka jakichs ciekawych bitmap, i to zdjęcie z szumem, zeby zaprezentowac działanie i dokumentacja					
 //5. opisac powiekszanie																											
 //6. komunikat jak wczytalismy inne rozmiary (przy robieniu zdjecia roznicowego)													zbedne
-//7. slidery - ruszanie tylko jednym, jesli pierwszy przestawiony, a ruch w drugim, to pierwszy na pozycje poczatkowa																									
+//7. slidery - ruszanie tylko jednym, jesli pierwszy przestawiony, a ruch w drugim, to pierwszy na pozycje poczatkowa				+++																					
 
 
 MyProject1Frame::MyProject1Frame( wxWindow* parent ):Frame( parent )
@@ -18,11 +18,14 @@ MyProject1Frame::MyProject1Frame( wxWindow* parent ):Frame( parent )
 	_image2 = wxImage();
 	_image3 = wxImage();
 
+	_image2s = wxImage();
+
 	_cpy1 = wxImage();
 	_cpy2 = wxImage();
 	_cpy3 = wxImage();
 	
 	_pow = 1;
+	_poz = 100;
 
 	m_scrolledWindow2->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
 	m_scrolledWindow21->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
@@ -54,12 +57,12 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 	
 	_w = _image1.GetHeight(); _h = _image1.GetWidth();
 
-	if ((_w != _image2.GetWidth() || _h != _image2.GetHeight() ) && _image2.GetWidth()>0)
+	if ((_w != _image2s.GetWidth() || _h != _image2s.GetHeight() ) && _image2s.GetWidth()>0)
 	{
 		wxClientDC dc2(m_scrolledWindow2);
 		dc2.Clear();
-		_image2.Rescale(_h, _w, wxIMAGE_QUALITY_HIGH);
-		_cpy2=_image2.Copy();
+		_image2s=_image2.Scale(_h, _w);
+		_cpy2=_image2s.Copy();
 		Repaint(m_scrolledWindow2, _cpy2);
 	}
 
@@ -84,16 +87,17 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 			return;
 
 		_image2.LoadFile(dialog->GetPath(), wxBITMAP_TYPE_ANY);
+		_image2s = _image2.Copy();
 
 		if (_w != 0 && _h != 0)
 			if (_w != _image2.GetWidth() || _h != _image2.GetHeight())
 			{
-				_image2.Rescale(_h, _w, wxIMAGE_QUALITY_HIGH);
+				_image2s=_image2.Scale(_h, _w);
 			}
 
-		_cpy2 = _image2.Copy();
+		_cpy2 = _image2s.Copy();
 
-		Repaint(m_scrolledWindow2, _image2);
+		Repaint(m_scrolledWindow2, _image2s);
 	//}
 }
 
@@ -102,6 +106,25 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 	wxClientDC dc1(m_scrolledWindow1);
 	wxClientDC dc2(m_scrolledWindow2);
 	wxClientDC dc3(m_scrolledWindow21);
+	if ((_image2.GetWidth() == 0 || _image2.GetHeight() == 0) || (_image1.GetWidth() == 0 || _image1.GetHeight() == 0))
+	{
+		m_slider3->SetValue(1);
+		return;
+	}
+	if (_poz != 100)
+	{
+		/*dc1.Clear();
+		dc2.Clear();
+		dc3.Clear();*/
+
+		_poz = 100;
+		_cpy1 = _image1.Copy();
+		_cpy2 = _image2s.Copy();
+		_cpy3 = _image3.Copy();
+
+		m_slider4->SetValue(100);
+
+	}
 
 	if (event.GetPosition() >= _pow) {
 		_cpy1.Rescale(2*_cpy1.GetWidth(), 2*_cpy1.GetHeight());
@@ -149,7 +172,7 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 	int h = _cpy1.GetHeight();
 
 	_image3=_image1.Copy();
-	_cpy3 = _image3.Copy();
+	_cpy3 = _cpy1.Copy();
 
 	int size = w * h * 3;
 
@@ -161,7 +184,19 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 		imgData3[i] = abs(imgData2[i] - imgData1[i]);
 	}
 
-	_image3 = _cpy3.Copy();
+	unsigned char* imgData1o = _image1.GetData();
+	unsigned char* imgData2o = _image2s.GetData();
+	unsigned char* imgData3o = _image3.GetData();
+
+	w = _image1.GetWidth();
+	h = _image1.GetHeight();
+	size = w * h * 3;
+
+	for (int i = 0; i < size; i++) {
+		imgData3o[i] = abs(imgData2o[i] - imgData1o[i]);
+	}
+
+	//_image3 = _cpy3.Copy();
 	Repaint(m_scrolledWindow21, _cpy3);
 }
 
@@ -204,14 +239,36 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 	wxClientDC dc1(m_scrolledWindow1);
 	wxClientDC dc2(m_scrolledWindow2);
 	wxClientDC dc3(m_scrolledWindow21);
+
+	if ((_image2.GetWidth() == 0 || _image2.GetHeight() == 0) || (_image1.GetWidth() == 0 || _image1.GetHeight() == 0))
+	{
+		m_slider4->SetValue(100);
+		return;
+	}
+
+	if (_pow != 1)
+	{
+		/*dc1.Clear();
+		dc2.Clear();
+		dc3.Clear();*/
+
+		_poz = 1;
+		_cpy1 = _image1.Copy();
+		_cpy2 = _image2s.Copy();
+		_cpy3 = _image3.Copy();
+
+		m_slider3->SetValue(1);
+
+	}
+
 	double z = 0;
-	if (event.GetPosition() != poz) {
+	if (event.GetPosition() != _poz) {
 		
-		z = 1+event.GetPosition();
-		_cpy1=_image1.Scale((z / 100.0) * _h, (z / 100.0) * _w, wxIMAGE_QUALITY_HIGH);
-		_cpy2=_image2.Scale((z / 100.0) * _h, (z / 100.0) * _w, wxIMAGE_QUALITY_HIGH);
-		_cpy3=_image3.Scale((z / 100.0) * _h, (z / 100.0) * _w, wxIMAGE_QUALITY_HIGH);
-		poz = event.GetPosition();
+		z = event.GetPosition();
+		_cpy1=_image1.Scale((z / 100.0) * _h, (z / 100.0) * _w);
+		_cpy2=_image2s.Scale((z / 100.0) * _h, (z / 100.0) * _w);
+		_cpy3=_image3.Scale((z / 100.0) * _h, (z / 100.0) * _w);
+		_poz = event.GetPosition();
 	}
 	
 

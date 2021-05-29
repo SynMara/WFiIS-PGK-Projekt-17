@@ -25,7 +25,7 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	load_button2 = new wxButton( this, wxID_ANY, wxT("wczytaj 2"), wxDefaultPosition, wxDefaultSize, 0 );
 	sizer2->Add( load_button2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	m_slider3 = new wxSlider( this, wxID_ANY, 1, 0, 3, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
+	m_slider3 = new wxSlider( this, wxID_ANY, 1, 0, 3, wxDefaultPosition, wxDefaultSize, wxSL_LABELS );
 	sizer2->Add( m_slider3, 0, wxALL, 5 );
 
 	m_button8 = new wxButton( this, wxID_ANY, wxT("zdj roznicowe"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -34,7 +34,7 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	save_button5 = new wxButton( this, wxID_ANY, wxT("zapis do BMP"), wxDefaultPosition, wxDefaultSize, 0 );
 	sizer2->Add( save_button5, 0, wxALL, 5 );
 
-	m_slider4 = new wxSlider(this, wxID_ANY, 99, 0, 399, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_slider4 = new wxSlider(this, wxID_ANY, 100, 1, 400, wxDefaultPosition, wxDefaultSize, wxSL_LABELS );
 	sizer2->Add(m_slider4, 0, wxALL, 5);
 
 
