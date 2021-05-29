@@ -22,6 +22,7 @@
 #include <wx/sizer.h>
 #include <wx/scrolwin.h>
 #include <wx/frame.h>
+#include <wx/textctrl.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -44,6 +45,8 @@ class Frame : public wxFrame
 		wxScrolledWindow* m_scrolledWindow21;
 
 		wxSlider* m_slider4;
+		wxTextCtrl* m_textCtrl1;
+		wxTextCtrl* m_textCtrl2;
 
 
 		// Virtual event handlers, overide them in your derived class
@@ -57,6 +60,8 @@ class Frame : public wxFrame
 		virtual void m_scrolledWindow21OnUpdateUI( wxUpdateUIEvent& event ) { event.Skip(); }
 
 		virtual void m_slider4OnScroll(wxScrollEvent& event) { event.Skip(); }
+		virtual void m_textCtrl1OnText(wxCommandEvent& event) { event.Skip(); }
+		virtual void m_textCtrl2OnText(wxCommandEvent& event) { event.Skip(); }
 
 
 	public:

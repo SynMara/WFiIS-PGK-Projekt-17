@@ -2,6 +2,7 @@
 #include <string>
 #include <wx/rawbmp.h>
 #include <wx/colour.h>
+#include<cmath>
 
 //1. poprawic proporcje w powiekszaniu/pomniejszaniu(50%, 100%, 200%, 400%)															+++
 //2. powiekszanie/pomniejszanie tylko kopia żeby zapisywać w oryginalnym wymiarze(albo przechowywać oryginalne wymiary)				+++
@@ -26,6 +27,13 @@ MyProject1Frame::MyProject1Frame( wxWindow* parent ):Frame( parent )
 	
 	_pow = 1;
 	_poz = 100;
+	wxString s1;
+	s1 << 50 * pow(2, _pow) << '%';
+	m_textCtrl1->SetValue(s1);
+
+	wxString s2;
+	s2 << _poz << '%';
+	m_textCtrl2->SetValue(s2);
 
 	m_scrolledWindow2->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
 	m_scrolledWindow21->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
@@ -123,6 +131,9 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 		_cpy3 = _image3.Copy();
 
 		m_slider4->SetValue(100);
+		wxString s;
+		s << _poz << '%';
+		m_textCtrl2->SetValue(s);
 
 	}
 
@@ -132,6 +143,9 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 		_cpy3.Rescale(2*_cpy3.GetWidth(), 2*_cpy3.GetHeight());
 
 		_pow += 1;
+		wxString s;
+		s << 50*pow(2,_pow)<<'%';
+		m_textCtrl1->SetValue(s);
 	}
 	else {
 		_cpy1.Rescale(0.5*_cpy1.GetWidth(), 0.5*_cpy1.GetHeight());
@@ -139,6 +153,9 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 		_cpy3.Rescale(0.5*_cpy3.GetWidth(), 0.5*_cpy3.GetHeight());
 
 		_pow -= 1;
+		wxString s;
+		s << 50 * pow(2, _pow) << '%';
+		m_textCtrl1->SetValue(s);
 	}
 
 	/*_image1 = _cpy1.Copy();
@@ -252,12 +269,15 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 		dc2.Clear();
 		dc3.Clear();*/
 
-		_poz = 1;
+		_pow = 1;
 		_cpy1 = _image1.Copy();
 		_cpy2 = _image2s.Copy();
 		_cpy3 = _image3.Copy();
 
 		m_slider3->SetValue(1);
+		wxString s;
+		s << 50 * pow(2, _pow) << '%';
+		m_textCtrl1->SetValue(s);
 
 	}
 
@@ -269,6 +289,9 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 		_cpy2=_image2s.Scale((z / 100.0) * _h, (z / 100.0) * _w);
 		_cpy3=_image3.Scale((z / 100.0) * _h, (z / 100.0) * _w);
 		_poz = event.GetPosition();
+		wxString s;
+		s << _poz << '%';
+		m_textCtrl2->SetValue(s);
 	}
 	
 
@@ -288,3 +311,6 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 	Repaint(m_scrolledWindow2, _cpy2);
 	Repaint(m_scrolledWindow21, _cpy3);
 }
+
+void MyProject1Frame::m_textCtrl1OnText(wxCommandEvent& event){}
+void MyProject1Frame::m_textCtrl2OnText(wxCommandEvent& event) {}
