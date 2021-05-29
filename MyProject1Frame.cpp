@@ -24,6 +24,7 @@ MyProject1Frame::MyProject1Frame( wxWindow* parent ):Frame( parent )
 	_cpy1 = wxImage();
 	_cpy2 = wxImage();
 	_cpy3 = wxImage();
+	wxInitAllImageHandlers();
 	
 	_pow = 1;
 	_poz = 100;
@@ -55,7 +56,7 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 	wxClientDC dc1(m_scrolledWindow1);
 	dc1.Clear();
 
-	wxFileDialog * dialog = new wxFileDialog(this, "Prosze wybrac zdjecie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	wxFileDialog* dialog = new wxFileDialog(this, "Prosze wybrac zdjecie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 	
 	if (dialog->ShowModal() == wxID_CANCEL)
 		return;
@@ -89,7 +90,7 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 	wxClientDC dc(m_scrolledWindow2);
 	dc.Clear();
 	//if (_w != 0 && _h != 0){
-		wxFileDialog* dialog = new wxFileDialog(this, "Prosze wybrac zdjecie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+		wxFileDialog* dialog = new wxFileDialog(this, "Prosze wybrac zdjecie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
 		if (dialog->ShowModal() == wxID_CANCEL)
 			return;
