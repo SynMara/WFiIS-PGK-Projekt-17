@@ -8,7 +8,7 @@
 //2. powiekszanie/pomniejszanie tylko kopia żeby zapisywać w oryginalnym wymiarze(albo przechowywać oryginalne wymiary)				+++
 //3. wczytywanie 2 zdjęcia po tym jak powiększyliśmy pierwsze (niech się wczytuje powiększone w ten sam sposób)						+++
 //4. przygotwac kilka jakichs ciekawych bitmap, i to zdjęcie z szumem, zeby zaprezentowac działanie i dokumentacja					
-//5. opisac powiekszanie																											
+//5. opisac powiekszanie																											+++
 //6. komunikat jak wczytalismy inne rozmiary (przy robieniu zdjecia roznicowego)													zbedne
 //7. slidery - ruszanie tylko jednym, jesli pierwszy przestawiony, a ruch w drugim, to pierwszy na pozycje poczatkowa				+++																					
 
