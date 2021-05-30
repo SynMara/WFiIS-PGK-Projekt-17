@@ -192,13 +192,13 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 	_image3=_image1.Copy();
 	_cpy3 = _cpy1.Copy();
 
-	int size = w * h * 3;
+	long int size = w * h * 3;
 
 	unsigned char* imgData1 = _cpy1.GetData();
 	unsigned char* imgData2 = _cpy2.GetData();
 	unsigned char* imgData3 = _cpy3.GetData();
 
-	for (int i = 0; i < size; i++) {
+	for (long int i = 0; i < size; i++) {
 		imgData3[i] = abs(imgData2[i] - imgData1[i]);
 	}
 
