@@ -99,9 +99,9 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 		_image2s = _image2.Copy();
 
 		if (_w != 0 && _h != 0)
-			if (_w != _image2.GetWidth() || _h != _image2.GetHeight())
+			if (_cpy1.GetWidth() != _image2.GetWidth() || _cpy1.GetHeight() != _image2.GetHeight())
 			{
-				_image2s=_image2.Scale(_h, _w);
+				_image2s = _image2.Scale(_cpy1.GetWidth(), _cpy1.GetHeight());
 			}
 
 		_cpy2 = _image2s.Copy();
