@@ -30,6 +30,8 @@ class MyProject1Frame : public Frame
 		void m_slider4OnScroll(wxScrollEvent& event);
 		void m_textCtrl1OnText(wxCommandEvent& event);
 		void m_textCtrl2OnText(wxCommandEvent& event);
+		void m_textCtrl3OnText(wxCommandEvent& event);
+		void m_textCtrl4OnText(wxCommandEvent& event);
 	public:
 		/** Constructor */
 		MyProject1Frame( wxWindow* parent );

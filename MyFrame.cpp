@@ -19,10 +19,10 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	wxBoxSizer* sizer2;
 	sizer2 = new wxBoxSizer( wxVERTICAL );
 
-	load_button1 = new wxButton( this, wxID_ANY, wxT("wczytaj 1"), wxDefaultPosition, wxDefaultSize, 0 );
+	load_button1 = new wxButton( this, wxID_ANY, wxT("Wczytaj zdj. 1"), wxDefaultPosition, wxDefaultSize, 0 );
 	sizer2->Add( load_button1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	load_button2 = new wxButton( this, wxID_ANY, wxT("wczytaj 2"), wxDefaultPosition, wxDefaultSize, 0 );
+	load_button2 = new wxButton( this, wxID_ANY, wxT("Wczytaj zdj. 2"), wxDefaultPosition, wxDefaultSize, 0 );
 	sizer2->Add( load_button2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	m_textCtrl1 = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(50, 27), wxTE_READONLY);
@@ -31,10 +31,10 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_slider3 = new wxSlider( this, wxID_ANY, 1, 0, 3, wxDefaultPosition, wxDefaultSize );
 	sizer2->Add( m_slider3, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	m_button8 = new wxButton( this, wxID_ANY, wxT("zdj roznicowe"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button8 = new wxButton( this, wxID_ANY, wxT("Zdj. ró¿nicowe"), wxDefaultPosition, wxDefaultSize, 0 );
 	sizer2->Add( m_button8, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	save_button5 = new wxButton( this, wxID_ANY, wxT("zapis do BMP"), wxDefaultPosition, wxDefaultSize, 0 );
+	save_button5 = new wxButton( this, wxID_ANY, wxT("Zapisz do BMP"), wxDefaultPosition, wxDefaultSize, 0 );
 	sizer2->Add( save_button5, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	m_textCtrl2 = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(50, 27), wxTE_READONLY);
@@ -43,7 +43,19 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_slider4 = new wxSlider(this, wxID_ANY, 100, 1, 400, wxDefaultPosition, wxDefaultSize );
 	sizer2->Add(m_slider4, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
+	m_staticText1 = new wxStaticText(this, wxID_ANY, wxT("Porównywanie pikseli"), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticText1->Wrap(-1);
+	sizer2->Add(m_staticText1, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 	
+	m_textCtrl3 = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(62, 27), wxTE_READONLY);
+	sizer2->Add(m_textCtrl3, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
+
+	m_staticText2 = new wxStaticText(this, wxID_ANY, wxT("Porównywanie kolorow"), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticText2->Wrap(-1);
+	sizer2->Add(m_staticText2, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
+
+	m_textCtrl4 = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(62, 27), wxTE_READONLY);
+	sizer2->Add(m_textCtrl4, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
 
 
@@ -103,6 +115,9 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 
 	m_textCtrl1->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl2->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
+
+	m_textCtrl3->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
+	m_textCtrl4->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 }
 
 Frame::~Frame()
@@ -137,5 +152,8 @@ Frame::~Frame()
 
 	m_textCtrl1->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl2->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
+
+	m_textCtrl3->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
+	m_textCtrl4->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 
 }

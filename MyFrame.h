@@ -23,6 +23,7 @@
 #include <wx/scrolwin.h>
 #include <wx/frame.h>
 #include <wx/textctrl.h>
+#include <wx/stattext.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -47,6 +48,11 @@ class Frame : public wxFrame
 		wxSlider* m_slider4;
 		wxTextCtrl* m_textCtrl1;
 		wxTextCtrl* m_textCtrl2;
+		wxTextCtrl* m_textCtrl3;
+		wxTextCtrl* m_textCtrl4;
+
+		wxStaticText* m_staticText1;
+		wxStaticText* m_staticText2;
 
 
 		// Virtual event handlers, overide them in your derived class
@@ -62,11 +68,13 @@ class Frame : public wxFrame
 		virtual void m_slider4OnScroll(wxScrollEvent& event) { event.Skip(); }
 		virtual void m_textCtrl1OnText(wxCommandEvent& event) { event.Skip(); }
 		virtual void m_textCtrl2OnText(wxCommandEvent& event) { event.Skip(); }
+		virtual void m_textCtrl3OnText(wxCommandEvent& event) { event.Skip(); }
+		virtual void m_textCtrl4OnText(wxCommandEvent& event) { event.Skip(); }
 
 
 	public:
 
-		Frame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("GFK projekt 17"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1200,400 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		Frame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("GFK projekt 17 Ko³odziej Sipko Trzeœniewski"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1250,550 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~Frame();
 

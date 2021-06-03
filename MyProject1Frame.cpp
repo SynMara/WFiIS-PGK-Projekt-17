@@ -3,6 +3,7 @@
 #include <wx/rawbmp.h>
 #include <wx/colour.h>
 #include<cmath>
+#include<iomanip>
 
 //1. poprawic proporcje w powiekszaniu/pomniejszaniu(50%, 100%, 200%, 400%)															+++
 //2. powiekszanie/pomniejszanie tylko kopia żeby zapisywać w oryginalnym wymiarze(albo przechowywać oryginalne wymiary)				+++
@@ -56,7 +57,7 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 	wxClientDC dc1(m_scrolledWindow1);
 	dc1.Clear();
 
-	wxFileDialog* dialog = new wxFileDialog(this, "Prosze wybrac zdjecie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	wxFileDialog* dialog = new wxFileDialog(this, "Proszę wybrać zdjęcie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 	
 	if (dialog->ShowModal() == wxID_CANCEL)
 		return;
@@ -90,7 +91,7 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 	wxClientDC dc(m_scrolledWindow2);
 	dc.Clear();
 	//if (_w != 0 && _h != 0){
-		wxFileDialog* dialog = new wxFileDialog(this, "Prosze wybrac zdjecie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+		wxFileDialog* dialog = new wxFileDialog(this, "Proszę wybrać zdjęcie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
 		if (dialog->ShowModal() == wxID_CANCEL)
 			return;
@@ -170,6 +171,8 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 
 void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 {
+	int licznik=0;
+	double podobienstwo=0;
 	if (_cpy1.GetHeight() != _cpy2.GetHeight() || _cpy1.GetWidth() != _cpy2.GetWidth()) {
 		return;
 	}
@@ -204,6 +207,21 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 	for (int i = 0; i < size; i++) {
 		imgData3o[i] = abs(imgData2o[i] - imgData1o[i]);
 	}
+	for (int i = 0; i < size; i+=3){
+		if (imgData3[i] == 0 && imgData3[i + 1] == 0 && imgData3[i + 2] == 0)
+			licznik++;
+	}
+
+	wxString s1;
+	s1 << round( (double)licznik / (size / 3) *100*100)/100<< '%';
+	m_textCtrl3->SetValue(s1);
+
+	for (int i = 0; i < size; i += 3) {
+		podobienstwo+=(double)(255 - imgData3[i]) / 255 * (double)(255 - imgData3[i + 1]) / 255 * (double)(255 - imgData3[i + 2]) / 255;
+	}
+	wxString s2;
+	s2 << round(podobienstwo / (size / 3) * 100 *100)/100<< '%';
+	m_textCtrl4->SetValue(s2);
 
 	//_image3 = _cpy3.Copy();
 	Repaint(m_scrolledWindow21, _cpy3);
@@ -306,3 +324,6 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 
 void MyProject1Frame::m_textCtrl1OnText(wxCommandEvent& event){}
 void MyProject1Frame::m_textCtrl2OnText(wxCommandEvent& event) {}
+
+void MyProject1Frame::m_textCtrl3OnText(wxCommandEvent& event) {}
+void MyProject1Frame::m_textCtrl4OnText(wxCommandEvent& event) {}
