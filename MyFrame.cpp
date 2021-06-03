@@ -31,7 +31,7 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_slider3 = new wxSlider( this, wxID_ANY, 1, 0, 3, wxDefaultPosition, wxDefaultSize );
 	sizer2->Add( m_slider3, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	m_button8 = new wxButton( this, wxID_ANY, wxT("Zdj. ró¿nicowe"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button8 = new wxButton( this, wxID_ANY, wxT("Zdj. r\u00F3\u017Cnicowe"), wxDefaultPosition, wxDefaultSize, 0 );
 	sizer2->Add( m_button8, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	save_button5 = new wxButton( this, wxID_ANY, wxT("Zapisz do BMP"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -43,14 +43,14 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_slider4 = new wxSlider(this, wxID_ANY, 100, 1, 400, wxDefaultPosition, wxDefaultSize );
 	sizer2->Add(m_slider4, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
-	m_staticText1 = new wxStaticText(this, wxID_ANY, wxT("Porównywanie pikseli"), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticText1 = new wxStaticText(this, wxID_ANY, wxT("Por\u00F3wnywanie pikseli"), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticText1->Wrap(-1);
 	sizer2->Add(m_staticText1, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 	
 	m_textCtrl3 = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(62, 27), wxTE_READONLY);
 	sizer2->Add(m_textCtrl3, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
-	m_staticText2 = new wxStaticText(this, wxID_ANY, wxT("Porównywanie kolorow"), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticText2 = new wxStaticText(this, wxID_ANY, wxT("Por\u00F3wnywanie kolor\u00F3w"), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticText2->Wrap(-1);
 	sizer2->Add(m_staticText2, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 

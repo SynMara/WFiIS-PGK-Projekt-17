@@ -74,7 +74,7 @@ class Frame : public wxFrame
 
 	public:
 
-		Frame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("GFK projekt 17 Ko³odziej Sipko Trzeœniewski"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1250,550 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		Frame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("GFK projekt 17 Ko\u0142odziej Sipko Trze\u015Bniewski"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1250,550 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~Frame();
 

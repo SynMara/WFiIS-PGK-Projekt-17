@@ -91,7 +91,7 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 	wxClientDC dc(m_scrolledWindow2);
 	dc.Clear();
 	//if (_w != 0 && _h != 0){
-		wxFileDialog* dialog = new wxFileDialog(this, "Proszę wybrać zdjęcie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+		wxFileDialog* dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 zdj\u0119cie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
 		if (dialog->ShowModal() == wxID_CANCEL)
 			return;
