@@ -138,24 +138,15 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 
 	}
 
-	if (event.GetPosition() >= _pow) {
-		_cpy1.Rescale(2*_cpy1.GetWidth(), 2*_cpy1.GetHeight());
-		_cpy2.Rescale(2*_cpy2.GetWidth(), 2*_cpy2.GetHeight());
-		_cpy3.Rescale(2*_cpy3.GetWidth(), 2*_cpy3.GetHeight());
+	if (event.GetPosition() != _pow) {
+		int tmp= event.GetPosition();
+		_cpy1 = _image1.Scale((50 * pow(2, tmp) / 100) * _image1.GetWidth(), (50 * pow(2, tmp) / 100) * _image1.GetHeight());
+		_cpy2 = _image2s.Scale((50 * pow(2, tmp) / 100) * _image2s.GetWidth(), (50 * pow(2, tmp) / 100) * _image2s.GetHeight());
+		_cpy3 = _image3.Scale((50 * pow(2, tmp) / 100) * _image3.GetWidth(), (50 * pow(2, tmp) / 100) * _image3.GetHeight());
 
-		_pow += 1;
+		_pow = tmp;
 		wxString s;
 		s << 50*pow(2,_pow)<<'%';
-		m_textCtrl1->SetValue(s);
-	}
-	else {
-		_cpy1.Rescale(0.5*_cpy1.GetWidth(), 0.5*_cpy1.GetHeight());
-		_cpy2.Rescale(0.5*_cpy2.GetWidth(), 0.5*_cpy2.GetHeight());
-		_cpy3.Rescale(0.5*_cpy3.GetWidth(), 0.5*_cpy3.GetHeight());
-
-		_pow -= 1;
-		wxString s;
-		s << 50 * pow(2, _pow) << '%';
 		m_textCtrl1->SetValue(s);
 	}
 
