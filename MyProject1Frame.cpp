@@ -1,18 +1,8 @@
-﻿#include "MyProject1Frame.h"
+#include "MyProject1Frame.h"
 #include <string>
 #include <wx/rawbmp.h>
 #include <wx/colour.h>
-#include<cmath>
-#include<iomanip>
-
-//1. poprawic proporcje w powiekszaniu/pomniejszaniu(50%, 100%, 200%, 400%)															+++
-//2. powiekszanie/pomniejszanie tylko kopia żeby zapisywać w oryginalnym wymiarze(albo przechowywać oryginalne wymiary)				+++
-//3. wczytywanie 2 zdjęcia po tym jak powiększyliśmy pierwsze (niech się wczytuje powiększone w ten sam sposób)						+++
-//4. przygotwac kilka jakichs ciekawych bitmap, i to zdjęcie z szumem, zeby zaprezentowac działanie i dokumentacja					
-//5. opisac powiekszanie																											+++
-//6. komunikat jak wczytalismy inne rozmiary (przy robieniu zdjecia roznicowego)													zbedne
-//7. slidery - ruszanie tylko jednym, jesli pierwszy przestawiony, a ruch w drugim, to pierwszy na pozycje poczatkowa				+++																					
-
+#include<cmath>																			
 
 MyProject1Frame::MyProject1Frame( wxWindow* parent ):Frame( parent )
 {
@@ -56,6 +46,13 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 {
 	wxClientDC dc1(m_scrolledWindow1);
 	dc1.Clear();
+	wxClientDC dc3(m_scrolledWindow21);
+	dc3.Clear();
+	if (_image3.GetWidth() > 0)
+	{
+		_image3.Destroy();
+		_cpy3.Destroy();
+	}
 
 	wxFileDialog* dialog = new wxFileDialog(this, "Proszę wybrać zdjęcie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 	
@@ -75,8 +72,6 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 		_cpy2=_image2s.Copy();
 		Repaint(m_scrolledWindow2, _cpy2);
 	}
-
-	
 	_cpy1=_image1.Copy();
 	
 	m_scrolledWindow1->SetScrollbars(1, 1, _image1.GetWidth(), _image1.GetHeight());
@@ -84,31 +79,39 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 	m_scrolledWindow21->SetScrollbars(1, 1, _image1.GetWidth(), _image1.GetHeight());
 
 	Repaint(m_scrolledWindow1, _image1);
+	
 }
 
 void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 {
 	wxClientDC dc(m_scrolledWindow2);
 	dc.Clear();
-	//if (_w != 0 && _h != 0){
-		wxFileDialog* dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 zdj\u0119cie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	wxClientDC dc3(m_scrolledWindow21);
+	dc3.Clear();
+	if(_image3.GetWidth()>0)
+	{
+		_image3.Destroy();
+		_cpy3.Destroy();
+	}
+	wxFileDialog* dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 zdj\u0119cie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
-		if (dialog->ShowModal() == wxID_CANCEL)
-			return;
+	if (dialog->ShowModal() == wxID_CANCEL)
+		return;
 
-		_image2.LoadFile(dialog->GetPath(), wxBITMAP_TYPE_ANY);
-		_image2s = _image2.Copy();
+	_image2.LoadFile(dialog->GetPath(), wxBITMAP_TYPE_ANY);
+	_image2s = _image2.Copy();
 
-		if (_w != 0 && _h != 0)
-			if (_cpy1.GetWidth() != _image2.GetWidth() || _cpy1.GetHeight() != _image2.GetHeight())
-			{
-				_image2s = _image2.Scale(_cpy1.GetWidth(), _cpy1.GetHeight());
-			}
+	if (_w != 0 && _h != 0)
+		if (_cpy1.GetWidth() != _image2.GetWidth() || _cpy1.GetHeight() != _image2.GetHeight())
+		{
+			_image2s = _image2.Scale(_cpy1.GetWidth(), _cpy1.GetHeight());
+		}
 
-		_cpy2 = _image2s.Copy();
+	_cpy2 = _image2s.Copy();
 
-		Repaint(m_scrolledWindow2, _image2s);
-	//}
+	Repaint(m_scrolledWindow2, _image2s);
+	
+
 }
 
 void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
@@ -123,10 +126,6 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 	}
 	if (_poz != 100)
 	{
-		/*dc1.Clear();
-		dc2.Clear();
-		dc3.Clear();*/
-
 		_poz = 100;
 		_cpy1 = _image1.Copy();
 		_cpy2 = _image2s.Copy();
@@ -151,10 +150,6 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 		m_textCtrl1->SetValue(s);
 	}
 
-	/*_image1 = _cpy1.Copy();
-	_image2 = _cpy2.Copy();
-	_image3 = _cpy3.Copy();*/
-
 	m_scrolledWindow1->SetScrollbars(1, 1, _cpy1.GetWidth(), _cpy1.GetHeight());
 	m_scrolledWindow2->SetScrollbars(1, 1, _cpy1.GetWidth(), _cpy1.GetHeight());
 	m_scrolledWindow21->SetScrollbars(1, 1, _cpy1.GetWidth(), _cpy1.GetHeight());
@@ -166,7 +161,6 @@ void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 	Repaint(m_scrolledWindow1, _cpy1);
 	Repaint(m_scrolledWindow2, _cpy2);
 	Repaint(m_scrolledWindow21, _cpy3);
-// TODO: Implement m_slider3OnScroll - to do poprawy
 }
 
 void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
@@ -223,7 +217,6 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 	s2 << round(podobienstwo / (size / 3) * 100 *100)/100<< '%';
 	m_textCtrl4->SetValue(s2);
 
-	//_image3 = _cpy3.Copy();
 	Repaint(m_scrolledWindow21, _cpy3);
 }
 
@@ -275,10 +268,6 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 
 	if (_pow != 1)
 	{
-		/*dc1.Clear();
-		dc2.Clear();
-		dc3.Clear();*/
-
 		_pow = 1;
 		_cpy1 = _image1.Copy();
 		_cpy2 = _image2s.Copy();
@@ -303,11 +292,6 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 		s << _poz << '%';
 		m_textCtrl2->SetValue(s);
 	}
-	
-
-	/*_image1 = _cpy1.Copy();
-	_image2 = _cpy2.Copy();
-	_image3 = _cpy3.Copy();*/
 
 	m_scrolledWindow1->SetScrollbars(1, 1, _cpy1.GetWidth(), _cpy1.GetHeight());
 	m_scrolledWindow2->SetScrollbars(1, 1, _cpy1.GetWidth(), _cpy1.GetHeight());
@@ -324,6 +308,5 @@ void MyProject1Frame::m_slider4OnScroll(wxScrollEvent& event)
 
 void MyProject1Frame::m_textCtrl1OnText(wxCommandEvent& event){}
 void MyProject1Frame::m_textCtrl2OnText(wxCommandEvent& event) {}
-
 void MyProject1Frame::m_textCtrl3OnText(wxCommandEvent& event) {}
 void MyProject1Frame::m_textCtrl4OnText(wxCommandEvent& event) {}
