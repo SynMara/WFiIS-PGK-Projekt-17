@@ -216,7 +216,7 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 		imgData3o[i] = abs(imgData2o[i] - imgData1o[i]);
 	}
 	for (int i = 0; i < size; i+=3){
-		if (imgData3[i] == 0 && imgData3[i + 1] == 0 && imgData3[i + 2] == 0)
+		if (imgData3o[i] == 0 && imgData3o[i + 1] == 0 && imgData3o[i + 2] == 0)
 			licznik++;
 	}
 
@@ -225,7 +225,7 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 	m_textCtrl3->SetValue(s1);
 
 	for (int i = 0; i < size; i += 3) {
-		podobienstwo+=(double)(255 - imgData3[i]) / 255 * (double)(255 - imgData3[i + 1]) / 255 * (double)(255 - imgData3[i + 2]) / 255;
+		podobienstwo+=(double)(255 - imgData3o[i]) / 255 * (double)(255 - imgData3o[i + 1]) / 255 * (double)(255 - imgData3o[i + 2]) / 255;
 	}
 	wxString s2;
 	s2 << round(podobienstwo / (size / 3) * 100 *100)/100<< '%';
