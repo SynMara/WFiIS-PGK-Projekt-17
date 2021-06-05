@@ -222,7 +222,7 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 
 void MyProject1Frame::save_button5OnButtonClick( wxCommandEvent& event )
 {
-	wxFileDialog * dialog = new wxFileDialog(this, "Prosze wybrac lokalizacje", "", "", wxT("Obraz BMP (*.bmp)|*.bmp"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+	wxFileDialog * dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 lokalizacj\u0119", "", "", wxT("Obraz BMP (*.bmp)|*.bmp"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
 	if (dialog->ShowModal() == wxID_CANCEL)
 		return;
