@@ -376,6 +376,9 @@ void MyProject1Frame::m_scrolledWindow1OnMouseEvents(wxMouseEvent& event)
 		img.SaveFile(dialog->GetPath());
 
 		delete rect1;
+		_klik = false;
+		_kursor = wxCursor(*wxSTANDARD_CURSOR);
+		SetCursor(_kursor);
 	}
 }
 
