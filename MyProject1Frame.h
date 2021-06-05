@@ -2,7 +2,6 @@
 #define __MyProject1Frame__
 #include <wx/wx.h>
 #include <wx/dcbuffer.h>
-//#include <wx/msw/wx.rc>
 #include <wx/cursor.h>
 
 /**
