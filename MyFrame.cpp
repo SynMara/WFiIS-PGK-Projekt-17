@@ -132,7 +132,7 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	//m_scrolledWindow1->Connect(wxEVT_AUX1_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	//m_scrolledWindow1->Connect(wxEVT_AUX2_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	//m_scrolledWindow1->Connect(wxEVT_AUX1_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_MOTION, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_MOTION, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	//m_scrolledWindow1->Connect(wxEVT_LEFT_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	/*m_scrolledWindow1->Connect(wxEVT_MIDDLE_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	m_scrolledWindow1->Connect(wxEVT_RIGHT_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
@@ -180,6 +180,10 @@ Frame::~Frame()
 
 	m_textCtrl3->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl4->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
+
+	m_scrolledWindow1->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Disconnect(wxEVT_LEFT_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Disconnect(wxEVT_MOTION, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 
 	save_button6->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::save_button6OnButtonClick), NULL, this);
 }

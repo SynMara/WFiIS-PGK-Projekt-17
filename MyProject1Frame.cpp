@@ -331,7 +331,23 @@ void MyProject1Frame::m_scrolledWindow1OnMouseEvents(wxMouseEvent& event)
 	{
 		px1 = (int)event.GetX();
 		py1 = (int)event.GetY();
+		wxClientDC dc1(m_scrolledWindow1);
+		dc1.SetBrush(*wxTRANSPARENT_BRUSH);
+		dc1.DrawRectangle(px1, py1, (int)event.GetX() - px1, (int)event.GetY() - py1);
 	}
+	if (event.LeftIsDown() && ((int)event.GetX() <= _cpy1.GetWidth() && (int)event.GetY() <= _cpy1.GetHeight()) && _klik)
+	{
+		wxClientDC dc1(m_scrolledWindow1);
+		dc1.SetBrush(*wxTRANSPARENT_BRUSH);
+		dc1.DrawRectangle(px1, py1, (int)event.GetX() - px1, (int)event.GetY() - py1);
+		
+	}
+	/*if (event.Dragging() && ((int)event.GetX() <= _cpy1.GetWidth() && (int)event.GetY() <= _cpy1.GetHeight()) && _klik)
+	{
+		wxClientDC dc1(m_scrolledWindow1);
+		dc1.SetBrush(*wxTRANSPARENT_BRUSH);
+		dc1.DrawRectangle(px1, py1, (int)event.GetX() - px1, (int)event.GetY() - py1);
+	}*/
 	if (event.LeftUp() && ((int)event.GetX() <= _cpy1.GetWidth() && (int)event.GetY() <= _cpy1.GetHeight()) && _klik)
 	{
 		px2 = (int)event.GetX();
@@ -340,6 +356,10 @@ void MyProject1Frame::m_scrolledWindow1OnMouseEvents(wxMouseEvent& event)
 			std::swap(px1, px2);
 		if (py1 > py2)
 			std::swap(py1, py2);
+
+		wxClientDC dc1(m_scrolledWindow1);
+		dc1.SetBrush(*wxTRANSPARENT_BRUSH);
+		dc1.DrawRectangle(px1, py1, px2 - px1, py2 - py1);
 
 		wxRect* rect1 = new wxRect(px1, py1, px2 - px1, py2 - py1);
 		wxImage img1, img2, img;
