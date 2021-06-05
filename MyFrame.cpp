@@ -57,6 +57,9 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_textCtrl4 = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(62, 27), wxTE_READONLY);
 	sizer2->Add(m_textCtrl4, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
 
+	save_button6 = new wxButton(this, wxID_ANY, wxT("Wytnij i zapisz"), wxDefaultPosition, wxDefaultSize, 0);
+	sizer2->Add(save_button6, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
+
 
 
 	bSizer2->Add( sizer2, 0, wxEXPAND, 5 );
@@ -118,6 +121,28 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 
 	m_textCtrl3->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl4->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
+
+	m_scrolledWindow1->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_MIDDLE_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_MIDDLE_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_RIGHT_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_RIGHT_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_AUX1_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_AUX1_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_AUX2_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_AUX1_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_MOTION, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	//m_scrolledWindow1->Connect(wxEVT_LEFT_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	/*m_scrolledWindow1->Connect(wxEVT_MIDDLE_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_RIGHT_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_AUX1_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_AUX2_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_LEAVE_WINDOW, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_ENTER_WINDOW, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
+	m_scrolledWindow1->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);*/
+
+	save_button6->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::save_button6OnButtonClick), NULL, this);
 }
 
 Frame::~Frame()
@@ -156,4 +181,5 @@ Frame::~Frame()
 	m_textCtrl3->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl4->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 
+	save_button6->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::save_button6OnButtonClick), NULL, this);
 }

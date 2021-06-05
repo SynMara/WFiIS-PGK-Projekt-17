@@ -53,6 +53,7 @@ class Frame : public wxFrame
 
 		wxStaticText* m_staticText1;
 		wxStaticText* m_staticText2;
+		wxButton* save_button6;
 
 
 		// Virtual event handlers, overide them in your derived class
@@ -70,6 +71,9 @@ class Frame : public wxFrame
 		virtual void m_textCtrl2OnText(wxCommandEvent& event) { event.Skip(); }
 		virtual void m_textCtrl3OnText(wxCommandEvent& event) { event.Skip(); }
 		virtual void m_textCtrl4OnText(wxCommandEvent& event) { event.Skip(); }
+
+		virtual void m_scrolledWindow1OnMouseEvents(wxMouseEvent& event) { event.Skip(); }
+		virtual void save_button6OnButtonClick(wxCommandEvent& event) { event.Skip(); }
 
 
 	public:

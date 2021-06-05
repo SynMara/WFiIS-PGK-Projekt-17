@@ -2,6 +2,8 @@
 #define __MyProject1Frame__
 #include <wx/wx.h>
 #include <wx/dcbuffer.h>
+//#include <wx/msw/wx.rc>
+#include <wx/cursor.h>
 
 /**
 @file
@@ -32,6 +34,9 @@ class MyProject1Frame : public Frame
 		void m_textCtrl2OnText(wxCommandEvent& event);
 		void m_textCtrl3OnText(wxCommandEvent& event);
 		void m_textCtrl4OnText(wxCommandEvent& event);
+
+		void m_scrolledWindow1OnMouseEvents(wxMouseEvent& event);
+		void save_button6OnButtonClick(wxCommandEvent& event);
 	public:
 		/** Constructor */
 		MyProject1Frame( wxWindow* parent );
@@ -45,10 +50,13 @@ class MyProject1Frame : public Frame
 		wxImage _cpy2;
 		wxImage _cpy3;
 		wxImage _image2s;
+		wxCursor _kursor;
 
 		unsigned _pow;
 		int _poz;
 		double _w=0, _h=0;
+		int px1, py1, px2, py2;
+		bool _klik=false;
 };
 
 #endif // __MyProject1Frame__

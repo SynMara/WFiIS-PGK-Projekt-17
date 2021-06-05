@@ -1,11 +1,15 @@
-#include "MyProject1Frame.h"
+﻿#include "MyProject1Frame.h"
 #include <string>
 #include <wx/rawbmp.h>
 #include <wx/colour.h>
-#include<cmath>																			
+#include<cmath>	
+
 
 MyProject1Frame::MyProject1Frame( wxWindow* parent ):Frame( parent )
 {
+	SetCursor(_kursor);
+	_kursor = wxCursor(*wxSTANDARD_CURSOR);
+	
 	_image1 = wxImage();
 	_image2 = wxImage();
 	_image3 = wxImage();
@@ -53,6 +57,10 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 		_image3.Destroy();
 		_cpy3.Destroy();
 	}
+	wxString s;
+	s << "";
+	m_textCtrl3->SetValue(s);
+	m_textCtrl4->SetValue(s);
 
 	wxFileDialog* dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 zdj\u0119cie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 	
@@ -93,6 +101,11 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 		_image3.Destroy();
 		_cpy3.Destroy();
 	}
+	wxString s;
+	s << "";
+	m_textCtrl3->SetValue(s);
+	m_textCtrl4->SetValue(s);
+
 	wxFileDialog* dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 zdj\u0119cie", "", "", wxT("Obraz BMP (*.bmp)|*.bmp|Obraz JPG (*.jpg)|*.jpg|Obraz PNG (*.png)|*.png"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
 	if (dialog->ShowModal() == wxID_CANCEL)
@@ -116,6 +129,7 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 
 void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 {
+	
 	wxClientDC dc1(m_scrolledWindow1);
 	wxClientDC dc2(m_scrolledWindow2);
 	wxClientDC dc3(m_scrolledWindow21);
@@ -310,3 +324,76 @@ void MyProject1Frame::m_textCtrl1OnText(wxCommandEvent& event){}
 void MyProject1Frame::m_textCtrl2OnText(wxCommandEvent& event) {}
 void MyProject1Frame::m_textCtrl3OnText(wxCommandEvent& event) {}
 void MyProject1Frame::m_textCtrl4OnText(wxCommandEvent& event) {}
+
+void MyProject1Frame::m_scrolledWindow1OnMouseEvents(wxMouseEvent& event)
+{
+	if (event.LeftDown() && ((int)event.GetX() <= _cpy1.GetWidth() && (int)event.GetY() <= _cpy1.GetHeight())  && _klik)
+	{
+		px1 = (int)event.GetX();
+		py1 = (int)event.GetY();
+	}
+	if (event.LeftUp() && ((int)event.GetX() <= _cpy1.GetWidth() && (int)event.GetY() <= _cpy1.GetHeight()) && _klik)
+	{
+		px2 = (int)event.GetX();
+		py2 = (int)event.GetY();
+		if (px1 > px2)
+			std::swap(px1, px2);
+		if (py1 > py2)
+			std::swap(py1, py2);
+
+		wxRect* rect1 = new wxRect(px1, py1, px2 - px1, py2 - py1);
+		wxImage img1, img2, img;
+		int w = 2*(px2 - px1);
+		int h = py2 - py1;
+
+		img1 = _cpy1.GetSubImage(*rect1);
+		img2 = _cpy2.GetSubImage(*rect1);
+
+		img = wxImage(w,h);
+		long int size = w * h * 3;
+
+		unsigned char* imgData1 = img1.GetData();
+		unsigned char* imgData2 = img2.GetData();
+		unsigned char* imgData3 = img.GetData();
+		long int j = 0, k = 0, size2 = size / 2;
+		for (long int i = 0; i < size; i++) {
+			
+			if ((i / (3 * (w /2))) % 2 == 0) {
+				imgData3[i] = imgData1[j];
+				j++;
+			}
+			else {
+				imgData3[i] = imgData2[k];
+				k++;
+			}
+		}
+
+		wxFileDialog* dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 lokalizacj\u0119", "", "", wxT("Obraz BMP (*.bmp)|*.bmp"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+
+		if (dialog->ShowModal() == wxID_CANCEL)
+			return;
+
+		img.SaveFile(dialog->GetPath());
+
+		delete rect1;
+	}
+}
+
+void MyProject1Frame::save_button6OnButtonClick(wxCommandEvent& event)
+{
+	if ((_image2.GetWidth() != 0 && _image2.GetHeight() != 0) && (_image1.GetWidth() != 0 && _image1.GetHeight() != 0))
+	{
+		if (!_klik)
+		{
+			_klik = true;
+			_kursor = wxCursor(*wxCROSS_CURSOR);
+			SetCursor(_kursor);
+		}
+		else
+		{
+			_klik = false;
+			_kursor = wxCursor(*wxSTANDARD_CURSOR);
+			SetCursor(_kursor);
+		}
+	}
+}
