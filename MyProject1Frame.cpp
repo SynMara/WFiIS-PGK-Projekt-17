@@ -1,6 +1,7 @@
-﻿#include "MyProject1Frame.h"
+#include "MyProject1Frame.h"
 #include <string>
 #include <wx/rawbmp.h>
+#include <wx/msgdlg.h>
 #include <wx/colour.h>
 #include<cmath>	
 
@@ -67,6 +68,26 @@ void MyProject1Frame::load_button1OnButtonClick( wxCommandEvent& event )
 	if (dialog->ShowModal() == wxID_CANCEL)
 		return;
 
+	if (_poz != 100)
+	{
+		_poz = 100;
+
+		m_slider4->SetValue(100);
+		wxString s;
+		s << _poz << '%';
+		m_textCtrl2->SetValue(s);
+
+	}
+	if (_pow != 1)
+	{
+		_pow = 1;
+		
+		m_slider3->SetValue(1);
+		wxString s;
+		s << 50 * pow(2, _pow) << '%';
+		m_textCtrl1->SetValue(s);
+
+	}
 	_image1.LoadFile(dialog->GetPath(), wxBITMAP_TYPE_ANY);
 
 	
@@ -117,25 +138,24 @@ void MyProject1Frame::load_button2OnButtonClick( wxCommandEvent& event )
 	if (_w != 0 && _h != 0)
 		if (_cpy1.GetWidth() != _image2.GetWidth() || _cpy1.GetHeight() != _image2.GetHeight())
 		{
-			_image2s = _image2.Scale(_cpy1.GetWidth(), _cpy1.GetHeight());
+			_image2s = _image2.Scale(_image1.GetWidth(), _image1.GetHeight());
 		}
 
-	_cpy2 = _image2s.Copy();
+	_cpy2 = _image2.Scale(_cpy1.GetWidth(), _cpy1.GetHeight());
 
-	Repaint(m_scrolledWindow2, _image2s);
+	Repaint(m_scrolledWindow2, _cpy2);
 	
 
 }
 
 void MyProject1Frame::m_slider3OnScroll( wxScrollEvent& event )
 {
-	
 	wxClientDC dc1(m_scrolledWindow1);
 	wxClientDC dc2(m_scrolledWindow2);
 	wxClientDC dc3(m_scrolledWindow21);
 	if ((_image2.GetWidth() == 0 || _image2.GetHeight() == 0) || (_image1.GetWidth() == 0 || _image1.GetHeight() == 0))
 	{
-		m_slider3->SetValue(1);
+		m_slider3->SetValue(1);	
 		return;
 	}
 	if (_poz != 100)
@@ -181,7 +201,8 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 {
 	int licznik=0;
 	double podobienstwo=0;
-	if (_cpy1.GetHeight() != _cpy2.GetHeight() || _cpy1.GetWidth() != _cpy2.GetWidth()) {
+	if (_cpy1.GetHeight()==0 || _cpy1.GetWidth() == 0 || _cpy2.GetHeight() == 0 || _cpy2.GetWidth() == 0) {
+		wxMessageBox(wxT("Prosz\u0119 o wczytanie obu zdj\u0119\u0107!"), wxT("OSTRZE\u017BENIE"), wxOK | wxCENTRE);
 		return;
 	}
 	
@@ -212,10 +233,10 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 	h = _image1.GetHeight();
 	size = w * h * 3;
 
-	for (int i = 0; i < size; i++) {
+	for (long int i = 0; i < size; i++) {
 		imgData3o[i] = abs(imgData2o[i] - imgData1o[i]);
 	}
-	for (int i = 0; i < size; i+=3){
+	for (long int i = 0; i < size; i+=3){
 		if (imgData3o[i] == 0 && imgData3o[i + 1] == 0 && imgData3o[i + 2] == 0)
 			licznik++;
 	}
@@ -224,7 +245,7 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 	s1 << round( (double)licznik / (size / 3) *100*100)/100<< '%';
 	m_textCtrl3->SetValue(s1);
 
-	for (int i = 0; i < size; i += 3) {
+	for (long int i = 0; i < size; i += 3) {
 		podobienstwo+=(double)(255 - imgData3o[i]) / 255 * (double)(255 - imgData3o[i + 1]) / 255 * (double)(255 - imgData3o[i + 2]) / 255;
 	}
 	wxString s2;
@@ -236,6 +257,11 @@ void MyProject1Frame::m_button8OnButtonClick(wxCommandEvent& event)
 
 void MyProject1Frame::save_button5OnButtonClick( wxCommandEvent& event )
 {
+	if (_cpy3.GetHeight() == 0 || _cpy3.GetWidth() == 0) {
+		wxMessageBox(wxT("Prosz\u0119 o zrobienie zdj\u0119cia r\u00F3\u017Cnicowego!"), wxT("OSTRZE\u017BENIE"), wxOK | wxCENTRE);
+		return;
+	}
+	
 	wxFileDialog * dialog = new wxFileDialog(this, "Prosz\u0119 wybra\u0107 lokalizacj\u0119", "", "", wxT("Obraz BMP (*.bmp)|*.bmp"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
 	if (dialog->ShowModal() == wxID_CANCEL)
@@ -418,5 +444,9 @@ void MyProject1Frame::save_button6OnButtonClick(wxCommandEvent& event)
 			_kursor = wxCursor(*wxSTANDARD_CURSOR);
 			SetCursor(_kursor);
 		}
+	}
+	else {
+		wxMessageBox(wxT("Prosz\u0119 o wczytanie obu zdj\u0119\u0107!"), wxT("OSTRZE\u017BENIE"), wxOK | wxCENTRE);
+		return;
 	}
 }
