@@ -105,7 +105,6 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_scrolledWindow1->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( Frame::m_scrolledWindow1OnUpdateUI ), NULL, this );
 	m_scrolledWindow2->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( Frame::m_scrolledWindow2OnUpdateUI ), NULL, this );
 	m_scrolledWindow21->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( Frame::m_scrolledWindow21OnUpdateUI ), NULL, this );
-
 	m_slider4->Connect(wxEVT_SCROLL_TOP, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Connect(wxEVT_SCROLL_BOTTOM, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Connect(wxEVT_SCROLL_LINEUP, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
@@ -115,33 +114,13 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	m_slider4->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Connect(wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
-
 	m_textCtrl1->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl2->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
-
 	m_textCtrl3->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl4->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
-
 	m_scrolledWindow1->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	m_scrolledWindow1->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_MIDDLE_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_MIDDLE_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_RIGHT_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_RIGHT_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_AUX1_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_AUX1_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_AUX2_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_AUX1_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	m_scrolledWindow1->Connect(wxEVT_MOTION, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	//m_scrolledWindow1->Connect(wxEVT_LEFT_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	/*m_scrolledWindow1->Connect(wxEVT_MIDDLE_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	m_scrolledWindow1->Connect(wxEVT_RIGHT_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	m_scrolledWindow1->Connect(wxEVT_AUX1_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	m_scrolledWindow1->Connect(wxEVT_AUX2_DCLICK, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	m_scrolledWindow1->Connect(wxEVT_LEAVE_WINDOW, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	m_scrolledWindow1->Connect(wxEVT_ENTER_WINDOW, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-	m_scrolledWindow1->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);*/
-
 	save_button6->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::save_button6OnButtonClick), NULL, this);
 }
 
@@ -164,7 +143,6 @@ Frame::~Frame()
 	m_scrolledWindow1->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( Frame::m_scrolledWindow1OnUpdateUI ), NULL, this );
 	m_scrolledWindow2->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( Frame::m_scrolledWindow2OnUpdateUI ), NULL, this );
 	m_scrolledWindow21->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( Frame::m_scrolledWindow21OnUpdateUI ), NULL, this );
-	
 	m_slider4->Disconnect(wxEVT_SCROLL_TOP, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Disconnect(wxEVT_SCROLL_BOTTOM, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Disconnect(wxEVT_SCROLL_LINEUP, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
@@ -174,16 +152,12 @@ Frame::~Frame()
 	m_slider4->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Disconnect(wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
 	m_slider4->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::m_slider4OnScroll), NULL, this);
-
 	m_textCtrl1->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl2->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
-
 	m_textCtrl3->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
 	m_textCtrl4->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::m_textCtrl1OnText), NULL, this);
-
 	m_scrolledWindow1->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	m_scrolledWindow1->Disconnect(wxEVT_LEFT_UP, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
 	m_scrolledWindow1->Disconnect(wxEVT_MOTION, wxMouseEventHandler(Frame::m_scrolledWindow1OnMouseEvents), NULL, this);
-
 	save_button6->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::save_button6OnButtonClick), NULL, this);
 }

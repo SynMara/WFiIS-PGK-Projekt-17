@@ -44,17 +44,14 @@ class Frame : public wxFrame
 		wxScrolledWindow* m_scrolledWindow1;
 		wxScrolledWindow* m_scrolledWindow2;
 		wxScrolledWindow* m_scrolledWindow21;
-
 		wxSlider* m_slider4;
 		wxTextCtrl* m_textCtrl1;
 		wxTextCtrl* m_textCtrl2;
 		wxTextCtrl* m_textCtrl3;
 		wxTextCtrl* m_textCtrl4;
-
 		wxStaticText* m_staticText1;
 		wxStaticText* m_staticText2;
 		wxButton* save_button6;
-
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void load_button1OnButtonClick( wxCommandEvent& event ) { event.Skip(); }
@@ -65,16 +62,13 @@ class Frame : public wxFrame
 		virtual void m_scrolledWindow1OnUpdateUI( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void m_scrolledWindow2OnUpdateUI( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void m_scrolledWindow21OnUpdateUI( wxUpdateUIEvent& event ) { event.Skip(); }
-
 		virtual void m_slider4OnScroll(wxScrollEvent& event) { event.Skip(); }
 		virtual void m_textCtrl1OnText(wxCommandEvent& event) { event.Skip(); }
 		virtual void m_textCtrl2OnText(wxCommandEvent& event) { event.Skip(); }
 		virtual void m_textCtrl3OnText(wxCommandEvent& event) { event.Skip(); }
 		virtual void m_textCtrl4OnText(wxCommandEvent& event) { event.Skip(); }
-
 		virtual void m_scrolledWindow1OnMouseEvents(wxMouseEvent& event) { event.Skip(); }
 		virtual void save_button6OnButtonClick(wxCommandEvent& event) { event.Skip(); }
-
 
 	public:
 
